@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: TLNCL-1.0
 pragma solidity ^0.8.0;
 
 contract DocumentProof {
@@ -19,6 +19,10 @@ contract DocumentProof {
             timestamp: block.timestamp,
             hash: _hash
         });
+    }
+
+    function getDocuments(string memory _hash) public view returns(Document memory){
+        return documents[_hash];
     }
 
     function verifyDocument(string memory _hash) public view returns (address, uint256) {
