@@ -21,6 +21,10 @@ contract DocumentProof {
         });
     }
 
+    function removeDocument(string memory _hash)    public {
+        delete documents[_hash];
+    }
+
     function verifyDocument(string memory _hash) public view returns (address, uint256) {
         require(documents[_hash].timestamp != 0, "Document not found");
         return (documents[_hash].signer, documents[_hash].timestamp);
