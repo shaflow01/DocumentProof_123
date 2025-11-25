@@ -1,27 +1,27 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: TLNCL-1.0
 pragma solidity ^0.8.0;
 
 contract DocumentProof {
-    
     struct Document {
-        address signer;       
-        uint256 timestamp;    
-        string hash;          
+        address signer;
+        uint256 timestamp;
     }
 
-    mapping(string => Document) public documents;
+    mapping(string => Document) private documents;
 
-    function signDocument(string memory _hash) public {
-        require(documents[_hash].timestamp == 0, "Document already signed");
-
+    function addDocument(string memory _hash) public {
+        require(documents[_hash].timestamp == 0, "Document already exists");
         documents[_hash] = Document({
             signer: msg.sender,
-            timestamp: block.timestamp,
-            hash: _hash
+            timestamp: block.timestamp
         });
     }
 
-    function removeDocument(string memory _hash)    public {
+    function getDocuments(string memory _hash) public view returns (Document memory) {
+        return documents[_hash];
+    }
+
+    function removeDocument(string memory _hash) public {
         delete documents[_hash];
     }
 
